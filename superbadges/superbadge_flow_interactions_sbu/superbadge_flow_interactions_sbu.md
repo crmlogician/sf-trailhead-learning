@@ -43,3 +43,44 @@ Trailhead: [Superbadge - Flow Interactions](https://trailhead.salesforce.com/con
 **Problem:** Leads need to be automatically assigned to the correct regional queue based on their country. A custom metadata type (`Region__mdt`) maps countries to regions (EMEA/APAC), and an existing Lead Assignment Rule (`Region Assignment`) assigns leads based on the Region field.
 
 **Flow:** Set Lead Region (new record-triggered flow)
+
+**Solution:** Created a before-save record-triggered flow on the Lead object:
+
+**Start Element Configuration:**
+- **Object:** Lead
+- **Trigger:** When a record is created or updated
+- **Trigger Type:** Before Save (Fast Field Updates)
+- **Entry Conditions (Custom Condition Logic):**
+  - Condition 1: `Country` Is Not Equal To `` (not empty)
+  - Condition 2: `Id` Is Null `True` (new record)
+  - Condition 3: `Country` Is Changed `True`
+  - **Custom Condition Logic:** `1 AND (2 OR 3)`
+
+  This logic ensures the flow fires when:
+  - The lead has a country value **AND**
+  - Either the lead is newly created (Id is null), **OR** the country value has changed
+
+**Flow Elements:**
+
+1. **Get Region Metadata** (`<Get_Region_Metadata>`) - Retrieves the first record from the `Region__mdt` custom metadata type, which contains `EMEA__c` and `APAC__c` fields listing associated country codes:
+   - EMEA: ZM, GB, AE, ES
+   - APAC: AU, NZ, JP, KR
+
+2. **Validate Lead Country** (`<Validate_Lead_Country>`) - Decision element with three outcomes:
+   - **is EMEA Region:** Checks if `Get_Region_Metadata.EMEA__c` is not empty AND contains the lead's Country value → routes to EMEA assignment
+   - **is APAC Region:** Checks if `Get_Region_Metadata.APAC__c` is not empty AND contains the lead's Country value → routes to APAC update
+   - **Default Outcome:** No action — the lead's Region is not updated if the country doesn't match either region
+
+3. **Set Lead Region as EMEA** (`<Set_Lead_Region_as_EMEA>`) - Assignment element that sets `{!$Record.Region__c}` to `EMEA`
+
+4. **Update Lead Region as APAC** (`<Update_Lead_Region_as_APAC>`) - Update Records element that sets `Region__c` to `APAC` on the triggering record
+
+**Flow Path:**
+`Start` → `Get Region Metadata` → `Validate Lead Country` →
+  - (is EMEA) → `Set Lead Region as EMEA` (done)
+  - (is APAC) → `Update Lead Region as APAC` (done)
+  - (default) → no action (done)
+
+**Integration with Assignment Rule:** The existing `Region Assignment` lead assignment rule references the `Region__c` field. Since this is a before-save flow, the Region value is set before the assignment rule evaluates, ensuring new leads are automatically routed to the correct regional queue.
+
+**Status:** Flow activated.
