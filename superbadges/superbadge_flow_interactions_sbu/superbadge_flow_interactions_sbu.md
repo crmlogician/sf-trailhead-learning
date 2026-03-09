@@ -84,3 +84,15 @@ Trailhead: [Superbadge - Flow Interactions](https://trailhead.salesforce.com/con
 **Integration with Assignment Rule:** The existing `Region Assignment` lead assignment rule references the `Region__c` field. Since this is a before-save flow, the Region value is set before the assignment rule evaluates, ensuring new leads are automatically routed to the correct regional queue.
 
 **Status:** Flow activated.
+
+## Challenge 3 - Case 5641: Flow Interactions with Other Flows
+
+- Adjust two existing lead rating flows so each runs only for its designated region, preventing cross-firing between automations.
+
+**Problem:** The Sales EMEA and Sales APAC teams each have separate record-triggered flows to set lead ratings based on annual revenue, but with different thresholds. Both flows fire on any lead when `AnnualRevenue` changes — neither filters by region. This causes both flows to evaluate and overwrite each other's rating, resulting in leads getting the wrong rating. The flows cannot be consolidated into one.
+
+**Flows Modified:**
+1. Sales EMEA Lead Rating (existing record-triggered flow)
+2. Sales APAC Lead Rating (existing record-triggered flow)
+
+**Root Cause:** Neither flow had a `Region__c` entry condition in its start element. Both flows triggered on **any** lead where `AnnualRevenue` changed, regardless of the lead's region. Since the flows have different revenue thresholds (EMEA: Hot ≥ $8M, Warm ≥ $4M vs. APAC: Hot ≥ $10M, Warm ≥ $6M), whichever flow ran last would overwrite the correct rating with its own thresholds.

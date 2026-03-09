@@ -2,6 +2,8 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>Discount_Approval_Request</members>
+        <members>Sales_EMEA_Lead_Rating</members>
+        <members>Sales_APAC_Lead_Rating</members>
         <members>Set_Lead_Region</members>
         <name>Flow</name>
     </types>
