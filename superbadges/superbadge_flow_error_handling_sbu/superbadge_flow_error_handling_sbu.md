@@ -22,3 +22,11 @@ This ensures the close date must be in the future. If a user enters a past date,
 **Key Constraint:** Completed without creating validation rules or adding elements to the flow - the validation is handled entirely within the existing screen element's field-level validation.
 
 **Status:** Flow activated.
+
+## Challenge 2 - Case Number 4021: Manage Fault Handling and Notifications
+
+- Add fault handling when flow errors occur.
+
+**Problem:** Users reported that the Consent Capture for Main Stage Analytics flow sometimes doesn't run correctly, with no error feedback.
+
+**Flow:** Consent Capture for Main Stage Analytics
