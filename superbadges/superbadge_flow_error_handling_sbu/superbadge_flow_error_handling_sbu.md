@@ -6,7 +6,7 @@ Trailhead: [https://trailhead.salesforce.com/content/learn/superbadges/superbadg
 
 ## Challenge 1 - Case Number 4014: Enhance a Flow to Support Valid Data Inputs
 
-- Improve data quality and reduce errors with updates to an existing flow. 
+- Improve data quality and reduce errors with updates to an existing flow.
 
 **Problem:** A sales team manager reported that opportunities are being created with close dates in the past, interfering with reporting and forecasting.
 
@@ -50,7 +50,7 @@ This ensures the close date must be in the future. If a user enters a past date,
 
 ## Challenge 3 - Case Number 4036: Roll Back and Track Errors with Flows
 
-- Enhance the user experience and track flow errors by adding records of incidents to a custom Error Log object. 
+- Enhance the user experience and track flow errors by adding records of incidents to a custom Error Log object.
 
 **Problem:** The New Account Contact flow creates an opportunity and then a contact. When the contact creation fails (e.g., duplicate primary contact), the opportunity is still created, causing confusion. No records should be created if the contact creation fails.
 
@@ -58,3 +58,23 @@ This ensures the close date must be in the future. If a user enters a past date,
 
 **Current Flow Order (not reordered per instructions):**  
 `New Account Contact (screen)` → `Create Opp` → `Create Contact`
+
+**Solution:** Added fault handling on the `Create Contact` element:
+
+1. **Fault Connector** on `Create Contact` - On fault, redirects to a Roll Back element.
+2. **Roll Back Created Data** (`<Roll_back_created_data>`) - Uses the Rollback Records element to undo all prior DML operations in the transaction (rolls back the opportunity created by `Create Opp`), ensuring no partial records remain.
+3. **Log Error as Create Incident** (`<Log_an_error_as_Create_Incident>`) - Creates an `Error_Log__c` record with:
+  - **Name:** "New Account Contact - Create Contact Error"
+  - **Error_Date__c:** `{!$Flow.CurrentDate}`
+  - **Message__c:** `{!$Flow.FaultMessage}`
+4. **Error Screen** (`<Display_Error_Details>`) - Displays a screen with a DisplayText component (API Name: `User_Error_Display`) showing the fault message, then uses a GoTo connector to redirect the user back to the `New Account Contact` input screen.
+
+**Flow Path on Fault:**  
+`Create Contact` → (fault) → `Roll back created data` → `Log an error as Create Incident` → `Display Error Details (User_Error_Display)` → (GoTo) → `New Account Contact` screen
+
+**Flow Path on Success:**  
+`New Account Contact` → `Create Opp` → `Create Contact` (done)
+
+**Key Constraint:** Existing elements were not reordered. The rollback element ensures the opportunity is undone if the contact fails.
+
+**Status:** Flow saved and activated.

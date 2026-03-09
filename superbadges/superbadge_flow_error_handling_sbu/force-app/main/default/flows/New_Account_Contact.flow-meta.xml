@@ -36,6 +36,9 @@
         <label>Create Contact</label>
         <locationX>176</locationX>
         <locationY>398</locationY>
+        <faultConnector>
+            <targetReference>Roll_back_created_data</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>AccountId</field>
             <value>
@@ -123,6 +126,72 @@
         <object>Opportunity</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
+    <recordCreates>
+        <name>Log_an_error_as_Create_Incident</name>
+        <label>Log an error as Create Incident</label>
+        <locationX>440</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>Display_Error_Details</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Error_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <stringValue>New Account Contact  - Create Contact Error</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Error_Log__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordRollbacks>
+        <name>Roll_back_created_data</name>
+        <label>Roll back created data</label>
+        <locationX>440</locationX>
+        <locationY>458</locationY>
+        <connector>
+            <targetReference>Log_an_error_as_Create_Incident</targetReference>
+        </connector>
+    </recordRollbacks>
+    <screens>
+        <name>Display_Error_Details</name>
+        <label>Display Error Details</label>
+        <locationX>440</locationX>
+        <locationY>674</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>New_Account_Contact</targetReference>
+        </connector>
+        <fields>
+            <name>User_Error_Display</name>
+            <fieldText>&lt;p&gt;Here are the errors:&lt;/p&gt;&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <screens>
         <description>Collect new contact information</description>
         <name>New_Account_Contact</name>
