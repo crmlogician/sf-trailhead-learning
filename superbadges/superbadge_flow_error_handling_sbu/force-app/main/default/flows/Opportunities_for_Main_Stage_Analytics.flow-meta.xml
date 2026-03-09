@@ -65,7 +65,7 @@
         <name>Create_Opp</name>
         <label>Create Opp</label>
         <locationX>176</locationX>
-        <locationY>278</locationY>
+        <locationY>242</locationY>
         <inputAssignments>
             <field>AccountId</field>
             <value>
@@ -170,7 +170,7 @@
         <name>Create_Opportunity</name>
         <label>Create Opportunity</label>
         <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -290,6 +290,10 @@
                             <stringValue>12</stringValue>
                         </width>
                     </styleProperties>
+                    <validationRule>
+                        <errorMessage>&lt;p&gt;Close Date must be a future date.&lt;/p&gt;</errorMessage>
+                        <formulaExpression>Today() &lt; {!ops_Close_Date}</formulaExpression>
+                    </validationRule>
                 </fields>
                 <inputParameters>
                     <name>width</name>
