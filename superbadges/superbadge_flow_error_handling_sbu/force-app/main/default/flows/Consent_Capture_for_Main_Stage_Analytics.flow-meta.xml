@@ -216,6 +216,9 @@
         <connector>
             <targetReference>Create_Individual_Success_0</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Create_Contact_Point_Type_Consent_Error_Messaging</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>CaptureContactPointType</field>
             <value>
@@ -719,6 +722,30 @@
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
+    <screens>
+        <name>Display_Create_Contact_Point_Type_Consent_Errors</name>
+        <label>Display Create Contact Point Type Consent Errors</label>
+        <locationX>314</locationX>
+        <locationY>2114</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Error_Display</name>
+            <fieldText>&lt;p&gt;An Error {!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <sourceTemplate>concap__Consent_Capture_Flow_Template</sourceTemplate>
     <start>
         <locationX>232</locationX>
@@ -728,6 +755,28 @@
         </connector>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>Create_Contact_Point_Type_Consent_Error_Messaging</name>
+        <label>Create Contact Point Type Consent Error Messaging</label>
+        <locationX>314</locationX>
+        <locationY>2006</locationY>
+        <connector>
+            <targetReference>Display_Create_Contact_Point_Type_Consent_Errors</targetReference>
+        </connector>
+        <flowName>Flow_Pro_Error_Messaging</flowName>
+        <inputAssignments>
+            <name>FaultMessage</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>UserEmail</name>
+            <value>
+                <elementReference>$User.Email</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
     <variables>
         <description>The Capture Contact Point Type passed from the component.</description>
         <name>captureContactPointType</name>

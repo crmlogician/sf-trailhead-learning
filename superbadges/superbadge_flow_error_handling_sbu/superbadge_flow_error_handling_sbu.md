@@ -30,3 +30,20 @@ This ensures the close date must be in the future. If a user enters a past date,
 **Problem:** Users reported that the Consent Capture for Main Stage Analytics flow sometimes doesn't run correctly, with no error feedback.
 
 **Flow:** Consent Capture for Main Stage Analytics
+
+**Solution:** Added a fault path to the `Create Contact Point Type Consent` (Create Records) element:
+
+1. **Fault Connector** - Added a fault path from the `Create Contact Point Type Consent` element to a subflow for error messaging.
+2. **Subflow: Flow Pro Error Messaging** (`<Create_Contact_Point_Type_Consent_Error_Messaging>`) - On fault, calls the existing `Flow_Pro_Error_Messaging` flow with:
+  - **UserEmail:** `{!$User.Email}` (running user's email address)
+  - **FaultMessage:** `{!$Flow.FaultMessage}` (system fault message)  
+   This alerts the Flow Pro (user with the Flow Pro profile) about the error.
+3. **Error Screen** (`<Display_Create_Contact_Point_Type_Consent_Errors>`) - After the subflow, displays a screen to the user with a DisplayText component (API Name: `Error_Display`) informing them that an error occurred.
+
+**Flow Path on Fault:**  
+`Create Contact Point Type Consent` → (fault) → `Flow Pro Error Messaging subflow` → `Error Screen with Error_Display`
+
+**Flow Path on Success:**  
+`Create Contact Point Type Consent` → `Create Individual Success` screen
+
+**Status:** Flow saved and activated.
