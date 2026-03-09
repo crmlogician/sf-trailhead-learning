@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Consent_Capture_for_Main_Stage_Analytics</members>
+        <members>Opportunities_for_Main_Stage_Analytics</members>
+        <members>New_Account_Contact</members>
+        <name>Flow</name>
+    </types>
+    <!--
+    sf project deploy start -x ./manifest/package.xml -g -dry-run
+    -->
+    <version>65.0</version>
+</Package>
