@@ -35,3 +35,11 @@ Trailhead: [Superbadge - Flow Interactions](https://trailhead.salesforce.com/con
 - Submits the current record (`{!$Record.Id}`) for approval
 
 **Status:** Flow activated.
+
+## Challenge 2 - Case 5623: Flow Interactions with Assignment Rules and Custom Metadata
+
+- Create a record-triggered flow to set the lead's Region based on Country using custom metadata, enabling automatic lead assignment via an existing assignment rule.
+
+**Problem:** Leads need to be automatically assigned to the correct regional queue based on their country. A custom metadata type (`Region__mdt`) maps countries to regions (EMEA/APAC), and an existing Lead Assignment Rule (`Region Assignment`) assigns leads based on the Region field.
+
+**Flow:** Set Lead Region (new record-triggered flow)
