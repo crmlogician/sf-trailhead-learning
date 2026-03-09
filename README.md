@@ -45,12 +45,21 @@ Subscribe to stay updated with new modules, challenge breakdowns, and implementa
 ```
 sf-trailhead-learning/
 ├── modules/
+├── trails/
 ├── superbadges/
+├── org-setup/
+├── integrations/
+├── customizations/
+└── docs/
 ```
 
 ### 📁 Folder Explanation
 
 - **modules/** → Structured approach for modules / challenges
+- **trails/** → Structured guide for trails
+- **org-setup/** → Developer Org setup & configuration guidance
+- **integrations/** → API callouts, integration patterns
+- **docs/** → Architecture decisions, troubleshooting, patterns
 
 ---
 
