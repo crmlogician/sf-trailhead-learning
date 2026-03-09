@@ -96,3 +96,26 @@ Trailhead: [Superbadge - Flow Interactions](https://trailhead.salesforce.com/con
 2. Sales APAC Lead Rating (existing record-triggered flow)
 
 **Root Cause:** Neither flow had a `Region__c` entry condition in its start element. Both flows triggered on **any** lead where `AnnualRevenue` changed, regardless of the lead's region. Since the flows have different revenue thresholds (EMEA: Hot ≥ $8M, Warm ≥ $4M vs. APAC: Hot ≥ $10M, Warm ≥ $6M), whichever flow ran last would overwrite the correct rating with its own thresholds.
+
+**Solution:** Added a `Region__c` filter to each flow's start element entry conditions so each flow only triggers for leads in its region:
+
+**Sales EMEA Lead Rating:**
+- **Trigger Type:** Before Save (`RecordBeforeSave`)
+- **Entry Conditions (All Conditions Are Met):**
+  - Condition 1: `AnnualRevenue` Is Changed `True`
+  - Condition 2: `Region__c` Equals `EMEA` ← **added**
+- **Rating Thresholds:** Hot (≥ $8M), Warm (≥ $4M), Cold (default)
+
+**Sales APAC Lead Rating:**
+- **Trigger Type:** After Save (`RecordAfterSave`)
+- **Entry Conditions (All Conditions Are Met):**
+  - Condition 1: `AnnualRevenue` Is Changed `True`
+  - Condition 2: `Region__c` Equals `APAC` ← **added**
+- **Rating Thresholds:** Hot (≥ $10M), Warm (≥ $6M), Cold (default)
+
+**Why This Fixes the Issue:**
+- Each flow now only fires when the lead's `Region__c` matches its designated region
+- EMEA leads are rated using EMEA thresholds only; APAC leads are rated using APAC thresholds only
+- No cross-firing occurs because the region filter prevents each flow from evaluating leads outside its scope
+
+**Status:** Both flows activated.
