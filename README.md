@@ -40,6 +40,20 @@ Subscribe to stay updated with new modules, challenge breakdowns, and implementa
 
 ---
 
+## 📂 Recommended Folder Structure
+
+```
+sf-trailhead-learning/
+├── modules/
+├── superbadges/
+```
+
+### 📁 Folder Explanation
+
+- **modules/** → Structured approach for modules / challenges
+
+---
+
 ## ⭐ Support
 
 If this repository helps you:
