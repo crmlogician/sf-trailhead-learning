@@ -47,3 +47,14 @@ This ensures the close date must be in the future. If a user enters a past date,
 `Create Contact Point Type Consent` → `Create Individual Success` screen
 
 **Status:** Flow saved and activated.
+
+## Challenge 3 - Case Number 4036: Roll Back and Track Errors with Flows
+
+- Enhance the user experience and track flow errors by adding records of incidents to a custom Error Log object. 
+
+**Problem:** The New Account Contact flow creates an opportunity and then a contact. When the contact creation fails (e.g., duplicate primary contact), the opportunity is still created, causing confusion. No records should be created if the contact creation fails.
+
+**Flow:** New Account Contact
+
+**Current Flow Order (not reordered per instructions):**  
+`New Account Contact (screen)` → `Create Opp` → `Create Contact`

@@ -3,6 +3,7 @@
     <types>
         <members>Consent_Capture_for_Main_Stage_Analytics</members>
         <members>Opportunities_for_Main_Stage_Analytics</members>
+        <members>New_Account_Contact</members>
         <name>Flow</name>
     </types>
     <!--
