@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Account.Rating</members>
+        <members>Account.Has_Support_Plan__c</members>
+        <members>Account.Support_Plan_Expiration_Date__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Account-en_US</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>Sales User</members>
+        <members>Support User</members>
+        <members>Admin</members>
+        <name>Profile</name>
+    </types>
+    <!--
+    sf project deploy start -x ./manifest/package.xml
+    -->
+    <version>65.0</version>
+</Package>
