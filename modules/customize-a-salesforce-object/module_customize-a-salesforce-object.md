@@ -154,3 +154,24 @@ Use picklists, filters, formulas, and other tools to customize an object in your
 
 #### Assign Page Layouts to Record Types
 - [x] All profiles: **Account Layout** assigned to default, Customer Account, and Partner Account record types
+
+
+### Unit 6: Customize Record Pages
+- Trailhead: [Customize Record Pages](https://trailhead.salesforce.com/content/learn/projects/customize-a-salesforce-object/create-account-page-layouts)
+
+#### Create Customer Account Lightning Page
+- [x] Setup > User Interface > Lightning App Builder > New
+- [x] Page name: **Customer Account Page** / API Name: `Customer_Account_Page`
+- [x] Object: **Account** / Page type: Record Page
+- [x] Activated and assigned to the **Customer Account** record type
+
+#### Create Partner Account Lightning Page
+- [x] Setup > User Interface > Lightning App Builder > New
+- [x] Page name: **Partner Account Page** / API Name: `Partner_Account_Page`
+- [x] Object: **Account** / Page type: Record Page
+- [x] Activated and assigned to the **Partner Account** record type
+
+#### Update Account Layout — Related Lists
+- [x] Object Manager > Account > Page Layouts > Account Layout
+- [x] Related Contacts list: added **Do Not Call** (`CONTACT.DO_NOT_CALL`) column
+- [x] Reordered related lists: Opportunities before Contacts
