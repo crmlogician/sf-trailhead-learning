@@ -135,3 +135,22 @@ Use picklists, filters, formulas, and other tools to customize an object in your
 - [x] Description: *Displays the Region and Zone values from the account record.*
 - [x] Help text: *Account region and zone.*
 - [x] Formula: `TEXT( Account.Region__c ) & "/" & TEXT( Account.Zone__c )`
+
+
+### Unit 5: Create Record Types
+- Trailhead: [Create Record Types](https://trailhead.salesforce.com/content/learn/projects/customize-a-salesforce-object/create-record-types)
+
+#### Create Customer Account Record Type
+- [x] Object Manager > Account > Record Types > New
+- [x] Record Type Label: **Customer Account** / API Name: `Customer_Account`
+- [x] Description: *For customers and prospects*
+- [x] Active: true; available to all profiles
+
+#### Create Partner Account Record Type
+- [x] Object Manager > Account > Record Types > New
+- [x] Record Type Label: **Partner Account** / API Name: `Partner_Account`
+- [x] Description: *For consulting partners*
+- [x] Active: true; available to all profiles
+
+#### Assign Page Layouts to Record Types
+- [x] All profiles: **Account Layout** assigned to default, Customer Account, and Partner Account record types
