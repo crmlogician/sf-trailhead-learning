@@ -10,6 +10,10 @@
         <members>Opportunity.Close_Reason__c</members>
         <members>Case.Backup_Agent__c</members>
         <members>Case.ContactId</members>
+        <members>Opportunity.Amount_After_Discount__c</members>
+        <members>Opportunity.Commission__c</members>
+        <members>Opportunity.Region_Zone__c</members>
+        <members>Opportunity.Discount_Percentage__c</members>
         <name>CustomField</name>
     </types>
     <types>

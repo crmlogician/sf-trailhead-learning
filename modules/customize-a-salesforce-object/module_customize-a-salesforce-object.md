@@ -100,3 +100,38 @@ Use picklists, filters, formulas, and other tools to customize an object in your
 - [x] Object Manager > Case > Fields & Relationships > Contact Name
 - [x] Add lookup filter: **Contact Account** equals **Case Account** (`Contact.AccountId` equals `$Source.AccountId`)
 - [x] Set filter as **Required**
+
+
+### Unit 4: Create Formula Fields
+- Trailhead: [Create Formula Fields](https://trailhead.salesforce.com/content/learn/projects/customize-a-salesforce-object/create-formula-fields)
+
+#### Create Discount Percentage Field
+- [x] New **Percent** field on Opportunity
+- [x] Field Label: **Discount Percentage** / API Name: `Discount_Percentage__c`
+- [x] Precision: 3 / Scale: 0
+- [x] Field-level security: editable for Admin; read-only for Sales User, Support User
+
+#### Create Amount After Discount Formula Field
+- [x] New **Formula** field on Opportunity (return type: **Currency**)
+- [x] Field Label: **Amount After Discount** / API Name: `Amount_After_Discount__c`
+- [x] Description: *Calculates the opportunity amount after any discount has been applied.*
+- [x] Help text: *Opportunity amount after discount has been applied.*
+- [x] Formula: `Amount * ( 1 - Discount_Percentage__c )`
+- [x] Treat blanks as: **Zeros**
+- [x] Precision: 18 / Scale: 2
+
+#### Create Commission Formula Field
+- [x] New **Formula** field on Opportunity (return type: **Currency**)
+- [x] Field Label: **Commission** / API Name: `Commission__c`
+- [x] Description: *Calculates sales rep commission of 10 percent when opportunity is won.*
+- [x] Help text: *Sales rep commission when opportunity is won.*
+- [x] Formula: `IF( ISPICKVAL( StageName, "Closed Won" ), Amount * 0.1, 0)`
+- [x] Treat blanks as: **Zeros**
+- [x] Precision: 18 / Scale: 2
+
+#### Create Region/Zone Formula Field
+- [x] New **Formula** field on Opportunity (return type: **Text**)
+- [x] Field Label: **Region/Zone** / API Name: `Region_Zone__c`
+- [x] Description: *Displays the Region and Zone values from the account record.*
+- [x] Help text: *Account region and zone.*
+- [x] Formula: `TEXT( Account.Region__c ) & "/" & TEXT( Account.Zone__c )`
