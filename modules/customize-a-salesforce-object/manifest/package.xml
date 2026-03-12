@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>standard__LightningSales</members>
+        <members>standard__Sales</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>Account.Rating</members>
+        <members>Account.Has_Support_Plan__c</members>
+        <members>Account.Support_Plan_Expiration_Date__c</members>
+        <members>Lead.Region__c</members>
+        <members>Account.Region__c</members>
+        <members>Account.Zone__c</members>
+        <members>Opportunity.Close_Reason__c</members>
+        <members>Case.Backup_Agent__c</members>
+        <members>Case.ContactId</members>
+        <members>Opportunity.Amount_After_Discount__c</members>
+        <members>Opportunity.Commission__c</members>
+        <members>Opportunity.Region_Zone__c</members>
+        <members>Opportunity.Discount_Percentage__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Account</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Account-en_US</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>Customer_Account_Page</members>
+        <members>Partner_Account_Page</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>Region</members>
+        <name>GlobalValueSet</name>
+    </types>
+    <types>
+        <members>Account-Account Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Account.Customer_Account</members>
+        <members>Account.Partner_Account</members>
+        <name>RecordType</name>
+    </types>
+    <types>
+        <members>Sales User</members>
+        <members>Support User</members>
+        <members>Admin</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>Account.Support_plan_expiration_date_required</members>
+        <members>Opportunity.Close_reason_required_when_lost</members>
+        <name>ValidationRule</name>
+    </types>
+    <!--
+    sf project deploy start -x ./manifest/package.xml
+    -->
+    <version>65.0</version>
+</Package>
