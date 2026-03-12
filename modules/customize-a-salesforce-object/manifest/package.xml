@@ -8,6 +8,8 @@
         <members>Account.Region__c</members>
         <members>Account.Zone__c</members>
         <members>Opportunity.Close_Reason__c</members>
+        <members>Case.Backup_Agent__c</members>
+        <members>Case.ContactId</members>
         <name>CustomField</name>
     </types>
     <types>

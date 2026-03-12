@@ -83,3 +83,20 @@ Use picklists, filters, formulas, and other tools to customize an object in your
   - Closed Lost → Lost: Competitor, Lost: Price, Lost: Product Features, Lost: Project Abandoned, Lost: Company Budget Constraints, Lost: Other Reason
   - Closed Won → Won: Competitor, Won: Price, Won: Product Features, Won: Other Reason
 
+
+### Unit 3: Create Lookup Filters
+- Trailhead: [Create Lookup Filters](https://trailhead.salesforce.com/content/learn/projects/customize-a-salesforce-object/create-lookup-filters)
+
+#### Create Backup Agent Field on Case
+- [x] New **Lookup** field on Case → related to **User**
+- [x] Field Label: **Backup Agent** / API Name: `Backup_Agent__c`
+- [x] Description: *Used to identify the assigned support rep when case owner is away — for support use only.*
+- [x] Help text: *Who is the assigned support rep when case owner is away?*
+- [x] Add lookup filter: **User Profile Name** equals **Support User**
+- [x] Set filter as **Required**
+- [x] Field-level security: read-only for Admin, Sales User, Support User
+
+#### Add Lookup Filter to Case Contact Field
+- [x] Object Manager > Case > Fields & Relationships > Contact Name
+- [x] Add lookup filter: **Contact Account** equals **Case Account** (`Contact.AccountId` equals `$Source.AccountId`)
+- [x] Set filter as **Required**
