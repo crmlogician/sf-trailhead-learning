@@ -38,3 +38,48 @@ Use picklists, filters, formulas, and other tools to customize an object in your
 - [ ] Field-level security: **read-only** for all except Sales User and Support User
 
 > **Note:** Including the Admin profile in the deployed metadata just to have FLS for the new fields — needed to pass the challenge.
+
+
+### Unit 2: Create Picklists and Field Dependencies
+- Trailhead: [Create Picklists and Field Dependencies](https://trailhead.salesforce.com/content/learn/projects/customize-a-salesforce-object/picklists-field-dependencies)
+
+#### Create Region Global Value Set
+- [x] Setup > Picklist Value Sets > New
+- [x] Label: **Region** / API Name: `Region`
+- [x] Description: *For use in region fields throughout AW's org.*
+- [x] Values: **APAC**, **EMEA**, **LATAM**, **US**, **Canada**
+
+#### Create Region Field on Account
+- [x] New **Picklist** field on Account using the **Region** global value set
+- [x] Field Label: **Region** / API Name: `Region__c`
+- [x] Description: *Customer's geographical region—for sales operations use only.*
+- [x] Help text: *In which region is the customer based?*
+
+#### Create Zone Field on Account (Dependent Picklist)
+- [x] New **Picklist** field on Account
+- [x] Field Label: **Zone** / API Name: `Zone__c`
+- [x] Description: *Customer's zone within the selected region—for sales operations use only.*
+- [x] Help text: *In which zone is this customer based? Depends on region.*
+- [x] Set up field dependency: controlling field = **Region**, dependent field = **Zone**
+  - APAC → East Asia, Oceania, Southeast Asia
+  - EMEA → Africa, Europe, Middle East, UK + Ireland
+  - LATAM → Mexico, Caribbean, Central America, South America
+  - US → Midwest US, Northeast US, Southeast US, Southwest US, West US
+  - Canada → Northern Canada, Mountains and the West, The Prairies, Central Canada, East Coast
+
+#### Create Region Field on Lead
+- [x] New **Picklist** field on Lead using the **Region** global value set
+- [x] Field Label: **Region** / API Name: `Region__c`
+- [x] Description: *Customer's geographical region—for sales operations use only.*
+- [x] Help text: *In which region is the customer based?*
+
+#### Create Close Reason Field on Opportunity (Dependent Multi-Select Picklist)
+- [x] New **Multi-Select Picklist** field on Opportunity
+- [x] Field Label: **Close Reason** / API Name: `Close_Reason__c`
+- [x] Description: *Created for the VP of Global Sales to track wins and losses.*
+- [x] Help text: *When you close the opportunity, select one or more values that best describe your reason for closing.*
+- [x] Visible lines: **6**
+- [x] Set up field dependency: controlling field = **Stage**, dependent field = **Close Reason**
+  - Closed Lost → Lost: Competitor, Lost: Price, Lost: Product Features, Lost: Project Abandoned, Lost: Company Budget Constraints, Lost: Other Reason
+  - Closed Won → Won: Competitor, Won: Price, Won: Product Features, Won: Other Reason
+

@@ -4,11 +4,19 @@
         <members>Account.Rating</members>
         <members>Account.Has_Support_Plan__c</members>
         <members>Account.Support_Plan_Expiration_Date__c</members>
+        <members>Lead.Region__c</members>
+        <members>Account.Region__c</members>
+        <members>Account.Zone__c</members>
+        <members>Opportunity.Close_Reason__c</members>
         <name>CustomField</name>
     </types>
     <types>
         <members>Account-en_US</members>
         <name>CustomObjectTranslation</name>
+    </types>
+    <types>
+        <members>Region</members>
+        <name>GlobalValueSet</name>
     </types>
     <types>
         <members>Sales User</members>
