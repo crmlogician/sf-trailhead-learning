@@ -53,6 +53,11 @@
         <members>Admin</members>
         <name>Profile</name>
     </types>
+    <types>
+        <members>Account.Support_plan_expiration_date_required</members>
+        <members>Opportunity.Close_reason_required_when_lost</members>
+        <name>ValidationRule</name>
+    </types>
     <!--
     sf project deploy start -x ./manifest/package.xml
     -->

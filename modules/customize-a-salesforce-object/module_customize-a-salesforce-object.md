@@ -185,3 +185,23 @@ Use picklists, filters, formulas, and other tools to customize an object in your
 - [x] Enable **Account History** tracking (`Account` CustomObject member added to package)
 - [x] `Has_Support_Plan__c`: `trackHistory` set to **true**
 - [x] `Support_Plan_Expiration_Date__c`: `trackHistory` set to **true**
+
+
+### Unit 8: Create Validation Rules
+- Trailhead: [Create Validation Rules](https://trailhead.salesforce.com/content/learn/projects/customize-a-salesforce-object/create-validation-rules-1)
+
+#### Create Support Plan Expiration Date Required (Account)
+- [x] Object Manager > Account > Validation Rules > New
+- [x] Rule Name: `Support_plan_expiration_date_required`
+- [x] Description: *Support plan expiration date is required when account is marked as having support plan.*
+- [x] Error Condition Formula: `Has_Support_Plan__c = True && ISBLANK(Support_Plan_Expiration_Date__c)`
+- [x] Error Message: *You must enter an expiration date when an account has a support plan.*
+- [x] Error Location: **Support Plan Expiration Date** field
+
+#### Create Close Reason Required When Lost (Opportunity)
+- [x] Object Manager > Opportunity > Validation Rules > New
+- [x] Rule Name: `Close_reason_required_when_lost`
+- [x] Description: *A close reason is required when opportunity is closed lost.*
+- [x] Error Condition Formula: `ISPICKVAL( StageName, "Closed Lost" ) && ISBLANK(Close_Reason__c)`
+- [x] Error Message: *You must enter a close reason when opportunity is closed lost.*
+- [x] Error Location: **Close Reason** field
