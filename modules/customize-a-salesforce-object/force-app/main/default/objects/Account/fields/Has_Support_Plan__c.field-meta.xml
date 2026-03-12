@@ -6,5 +6,6 @@
     <inlineHelpText>Does this customer have a current support plan? Check this box when you sell a support plan to this customer.</inlineHelpText>
     <label>Has Support Plan</label>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <type>Checkbox</type>
 </CustomField>

@@ -22,6 +22,10 @@
         <name>CustomField</name>
     </types>
     <types>
+        <members>Account</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
         <members>Account-en_US</members>
         <name>CustomObjectTranslation</name>
     </types>

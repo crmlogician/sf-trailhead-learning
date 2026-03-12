@@ -175,3 +175,13 @@ Use picklists, filters, formulas, and other tools to customize an object in your
 - [x] Object Manager > Account > Page Layouts > Account Layout
 - [x] Related Contacts list: added **Do Not Call** (`CONTACT.DO_NOT_CALL`) column
 - [x] Reordered related lists: Opportunities before Contacts
+
+
+### Unit 7: Enable Account Field History Tracking
+- Trailhead: [Enable Account Field History Tracking](https://trailhead.salesforce.com/content/learn/projects/customize-a-salesforce-object/account-field-history-tracking)
+
+#### Enable Field History Tracking on Account
+- [x] Object Manager > Account > Fields & Relationships > Set History Tracking
+- [x] Enable **Account History** tracking (`Account` CustomObject member added to package)
+- [x] `Has_Support_Plan__c`: `trackHistory` set to **true**
+- [x] `Support_Plan_Expiration_Date__c`: `trackHistory` set to **true**
