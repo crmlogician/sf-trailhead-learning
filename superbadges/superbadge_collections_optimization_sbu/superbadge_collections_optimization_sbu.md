@@ -30,3 +30,11 @@ Trailhead: [Superbadge: Flow Data Collections Optimization](https://trailhead.sa
 **Problem:** The **30 Day Case Review** screen flow lets users browse cases created in the last 30 days and filter them by **Status** through a picklist on the screen. Its current design uses a Loop to iterate over the queried cases, with a Decision to test each record's Status and an Assignment to add matches to a collection — work that can be done in-place by a Filter collection element. Replace the Loop/Decision/Assignment trio with a single Filter element named **Filter for Status** (`Filter_for_Status`) that filters the case collection by the user-selected status, keep the screen's existing user interaction (status picklist + cases datatable), and ensure the final element on the canvas is an Assignment that updates the current filter selection. Activate the new version before verification.
 
 **Flow:** 30 Day Case Review
+
+**Solution:**
+
+- Replaced the Loop + Decision + Assignment combo with a single **Filter Collection** element `Filter_for_Status` that filters `Get_Cases` where `Status` equals the `Current_Filter` variable (using `currentItem_Filter_for_Status` as the iterator reference).
+- Wired `Get_Cases` directly to `Filter_for_Status`, and `Filter_for_Status` on to the existing `Case_View` screen.
+- Repointed the datatable's `tableData` input on `Case_View` from `Filtered_Cases` to the `Filter_for_Status` output so the screen renders the filtered cases for the chosen status.
+- Kept `Case_Status_ChoiceSet` (Case Status picklist) on the screen for user selection, and made the trailing `Update_Filter` Assignment (which sets `Current_Filter = Case_Current_Status`) the final element on the canvas — removing its outgoing GoTo back into the loop.
+- Removed the now-unused `Apply_Filter_Choice` (Loop), `Apply_Filter` (Decision), `Add_current_element` (Assignment), and `Filtered_Cases` (SObject collection) elements.

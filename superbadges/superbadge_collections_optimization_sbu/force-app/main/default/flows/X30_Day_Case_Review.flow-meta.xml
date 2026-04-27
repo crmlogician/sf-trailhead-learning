@@ -3,28 +3,11 @@
     <apiVersion>57.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
-        <description>Add current element to the filtered collection</description>
-        <name>Add_current_element</name>
-        <label>Add current element</label>
-        <locationX>264</locationX>
-        <locationY>518</locationY>
-        <assignmentItems>
-            <assignToReference>Filtered_Cases</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>Apply_Filter_Choice</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Apply_Filter_Choice</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <description>Update the current case filter</description>
         <name>Update_Filter</name>
         <label>Update Filter</label>
         <locationX>176</locationX>
-        <locationY>950</locationY>
+        <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>Current_Filter</assignToReference>
             <operator>Assign</operator>
@@ -32,37 +15,28 @@
                 <elementReference>Case_Current_Status</elementReference>
             </value>
         </assignmentItems>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Apply_Filter_Choice</targetReference>
-        </connector>
     </assignments>
-    <decisions>
-        <description>Check if the current case fits the status filter</description>
-        <name>Apply_Filter</name>
-        <label>Apply Filter</label>
-        <locationX>396</locationX>
-        <locationY>398</locationY>
-        <defaultConnector>
-            <targetReference>Apply_Filter_Choice</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Does not fit filter</defaultConnectorLabel>
-        <rules>
-            <name>Fits_filter</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Apply_Filter_Choice.Status</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Current_Filter</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Add_current_element</targetReference>
-            </connector>
-            <label>Fits filter</label>
-        </rules>
-    </decisions>
+    <collectionProcessors>
+        <name>Filter_for_Status</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Filter for Status</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNextValueToReference>currentItem_Filter_for_Status</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>Get_Cases</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_Filter_for_Status.Status</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <elementReference>Current_Filter</elementReference>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>Case_View</targetReference>
+        </connector>
+    </collectionProcessors>
     <description>A flow to easily review the cases created in the last 30 days</description>
     <dynamicChoiceSets>
         <description>A choice set created from the Case Status picklist</description>
@@ -82,21 +56,6 @@
     </formulas>
     <interviewLabel>30 Day Case Review {!$Flow.CurrentDateTime}</interviewLabel>
     <label>30 Day Case Review</label>
-    <loops>
-        <description>Create a new collection using the selected filter choice</description>
-        <name>Apply_Filter_Choice</name>
-        <label>Apply Filter Choice</label>
-        <locationX>176</locationX>
-        <locationY>278</locationY>
-        <collectionReference>Get_Cases</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>Apply_Filter</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>Case_View</targetReference>
-        </noMoreValuesConnector>
-    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -121,10 +80,10 @@
         <name>Get_Cases</name>
         <label>Get Cases</label>
         <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Apply_Filter_Choice</targetReference>
+            <targetReference>Filter_for_Status</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -143,7 +102,7 @@
         <name>Case_View</name>
         <label>Case View</label>
         <locationX>176</locationX>
-        <locationY>830</locationY>
+        <locationY>350</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -156,6 +115,7 @@
             <dataType>String</dataType>
             <fieldText>Current Status</fieldText>
             <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -195,7 +155,7 @@
             <inputParameters>
                 <name>tableData</name>
                 <value>
-                    <elementReference>Filtered_Cases</elementReference>
+                    <elementReference>Filter_for_Status</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -249,10 +209,9 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <description>A collection containing the filtered case list</description>
-        <name>Filtered_Cases</name>
+        <name>currentItem_Filter_for_Status</name>
         <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
+        <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>Case</objectType>
