@@ -44,3 +44,17 @@ Trailhead: [Superbadge: Flow Data Collections Optimization](https://trailhead.sa
 - Configure a new flow that evaluates a collection based on the number of records in it.
 
 **Problem:** Account managers need different downstream behavior depending on how many open opportunities exist on an account when its **Industry** changes. Build a record-triggered flow on **Account** that runs after save when `Industry` is changed. Query all related opportunities that are not **Closed Won** or **Closed Lost**, then branch on the size of that collection: if **more than 3** open opportunities exist, send an email to the account owner; otherwise, loop the records and set each opportunity's **Stage** to **Needs Analysis** and commit the updates in a single bulk operation. Activate the flow before verification.
+
+**Flow:** Account Industry Change
+
+**Solution:**
+
+- Created the **Account Industry Change** record-triggered flow on **Account** (`RecordAfterSave`, `Update`) with an entry condition of `Industry IsChanged = true`.
+- `Get_Opportunities`: queries `Opportunity` where `AccountId = {!$Record.Id}` AND `StageName != Closed Won` AND `StageName != Closed Lost` (returns a collection).
+- `Capture_Records_Count`: Assignment that uses the **AssignCount** operator to set `oppCount` (Number) to the size of the `Get_Opportunities` collection.
+- `Validate_Record_Count`: Decision with rule **More Than 3** (`oppCount > 3`) → `Notify_Account_Owner`; default outcome **3 Or Less** → `Process_Opportunities`.
+- `Notify_Account_Owner`: **Send Email** action (`emailSimple`) addressed to `{!$Record.Owner.Email}` with subject *"Flow Automation Account Update Opportunities"*.
+- `Process_Opportunities` Loop over `Get_Opportunities`:
+  - On each iteration, `Prepare_Opportuntity_Data` Assignment sets `Process_Opportunities.StageName = "Needs Analysis"` and **Adds** the current record to the `oppToUpdates` (Opportunity SObject collection) variable.
+  - On **No More Values**, `Update_Opportunities` performs a single bulk record update using `oppToUpdates` as the input reference.
+- Activated the flow.
