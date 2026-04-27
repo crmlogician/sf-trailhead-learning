@@ -2,6 +2,7 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>Suspended_Account_Opportunity_Updater</members>
+        <members>X30_Day_Case_Review</members>
         <name>Flow</name>
     </types>
     <!--

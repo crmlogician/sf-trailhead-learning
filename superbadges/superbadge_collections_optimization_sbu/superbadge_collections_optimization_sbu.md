@@ -22,3 +22,11 @@ Trailhead: [Superbadge: Flow Data Collections Optimization](https://trailhead.sa
 - Wired the loop's **No More Values** path to a single bulk `Update_Opportunities_Collection` record update using `updateOpportunityStage` as the input reference.
 - Followed it with a `Negotiation_Review_Opps` subflow call, passing `oppOwnerChanges` into the subflow's `Review_Opps` input.
 - Activated the new version of the flow.
+
+## CH 2 - Eliminate an Unnecessary Loop from an Existing Flow
+
+- Replace Loop, Decision, and Assignment elements for simple and efficient processing.
+
+**Problem:** The **30 Day Case Review** screen flow lets users browse cases created in the last 30 days and filter them by **Status** through a picklist on the screen. Its current design uses a Loop to iterate over the queried cases, with a Decision to test each record's Status and an Assignment to add matches to a collection — work that can be done in-place by a Filter collection element. Replace the Loop/Decision/Assignment trio with a single Filter element named **Filter for Status** (`Filter_for_Status`) that filters the case collection by the user-selected status, keep the screen's existing user interaction (status picklist + cases datatable), and ensure the final element on the canvas is an Assignment that updates the current filter selection. Activate the new version before verification.
+
+**Flow:** 30 Day Case Review
