@@ -3,20 +3,35 @@
     <apiVersion>57.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
-        <description>Transfer ownership of the flow to the Negotiation Team</description>
-        <name>Update_Owner</name>
-        <label>Update Owner</label>
+        <name>Capture_Owner_Change_Opportunity</name>
+        <label>Capture Owner Change Opportunity</label>
         <locationX>264</locationX>
-        <locationY>695</locationY>
+        <locationY>647</locationY>
         <assignmentItems>
-            <assignToReference>Update_Opportunities.OwnerId</assignToReference>
-            <operator>Assign</operator>
+            <assignToReference>oppOwnerChanges</assignToReference>
+            <operator>Add</operator>
             <value>
-                <stringValue>005B0000008dGyh</stringValue>
+                <elementReference>Update_Opportunities</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_Opportunity_Record</targetReference>
+            <targetReference>Update_Opportunities</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Capture_Stage_Change_Opportunity</name>
+        <label>Capture Stage Change Opportunity</label>
+        <locationX>528</locationX>
+        <locationY>755</locationY>
+        <assignmentItems>
+            <assignToReference>updateOpportunityStage</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Update_Opportunities</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Opportunities</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -24,7 +39,7 @@
         <name>Update_Stage</name>
         <label>Update Stage</label>
         <locationX>528</locationX>
-        <locationY>695</locationY>
+        <locationY>647</locationY>
         <assignmentItems>
             <assignToReference>Update_Opportunities.StageName</assignToReference>
             <operator>Assign</operator>
@@ -33,7 +48,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_Current_Opp</targetReference>
+            <targetReference>Capture_Stage_Change_Opportunity</targetReference>
         </connector>
     </assignments>
     <decisions>
@@ -41,7 +56,7 @@
         <name>Check_Stage</name>
         <label>Check Stage</label>
         <locationX>396</locationX>
-        <locationY>575</locationY>
+        <locationY>539</locationY>
         <defaultConnector>
             <targetReference>Update_Stage</targetReference>
         </defaultConnector>
@@ -57,7 +72,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Owner</targetReference>
+                <targetReference>Capture_Owner_Change_Opportunity</targetReference>
             </connector>
             <label>Negotiation/Review</label>
         </rules>
@@ -71,12 +86,15 @@
         <name>Update_Opportunities</name>
         <label>Update Opportunities</label>
         <locationX>176</locationX>
-        <locationY>455</locationY>
+        <locationY>431</locationY>
         <collectionReference>Get_Related_Records</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
             <targetReference>Check_Stage</targetReference>
         </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Opportunities_Collection</targetReference>
+        </noMoreValuesConnector>
     </loops>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -102,7 +120,7 @@
         <name>Get_Related_Records</name>
         <label>Get Related Records</label>
         <locationX>176</locationX>
-        <locationY>335</locationY>
+        <locationY>323</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Opportunities</targetReference>
@@ -134,26 +152,15 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <description>Insert the newly updated record</description>
-        <name>Update_Current_Opp</name>
-        <label>Update Current Opp</label>
-        <locationX>528</locationX>
-        <locationY>815</locationY>
+        <description>Updating multiple opportunities</description>
+        <name>Update_Opportunities_Collection</name>
+        <label>Update Opportunities</label>
+        <locationX>176</locationX>
+        <locationY>1031</locationY>
         <connector>
-            <targetReference>Update_Opportunities</targetReference>
+            <targetReference>Negotiation_Review_Opps</targetReference>
         </connector>
-        <inputReference>Update_Opportunities</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <description>Save the changes to the opportunity to the database</description>
-        <name>Update_Opportunity_Record</name>
-        <label>Update Opportunity Record</label>
-        <locationX>264</locationX>
-        <locationY>815</locationY>
-        <connector>
-            <targetReference>Update_Opportunities</targetReference>
-        </connector>
-        <inputReference>Update_Opportunities</inputReference>
+        <inputReference>updateOpportunityStage</inputReference>
     </recordUpdates>
     <start>
         <locationX>50</locationX>
@@ -175,4 +182,33 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>Negotiation_Review_Opps</name>
+        <label>Negotiation/Review - Opps</label>
+        <locationX>176</locationX>
+        <locationY>1139</locationY>
+        <flowName>Negotiation_Review_opps</flowName>
+        <inputAssignments>
+            <name>Review_Opps</name>
+            <value>
+                <elementReference>oppOwnerChanges</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>oppOwnerChanges</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>updateOpportunityStage</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
 </Flow>
