@@ -4,7 +4,7 @@ Demonstrate your skills designing optimized flows that work with collections of 
 
 Trailhead: [Superbadge: Flow Data Collections Optimization](https://trailhead.salesforce.com/content/learn/superbadges/superbadge_collections_optimization_sbu)
 
-## Challenge 1 - Optimize a Loop and Update Operation
+## CH 1 - Optimize a Loop and Update Operation
 
 - Work with multiple collections for use in a loop and a subflow.
 
@@ -38,3 +38,9 @@ Trailhead: [Superbadge: Flow Data Collections Optimization](https://trailhead.sa
 - Repointed the datatable's `tableData` input on `Case_View` from `Filtered_Cases` to the `Filter_for_Status` output so the screen renders the filtered cases for the chosen status.
 - Kept `Case_Status_ChoiceSet` (Case Status picklist) on the screen for user selection, and made the trailing `Update_Filter` Assignment (which sets `Current_Filter = Case_Current_Status`) the final element on the canvas — removing its outgoing GoTo back into the loop.
 - Removed the now-unused `Apply_Filter_Choice` (Loop), `Apply_Filter` (Decision), `Add_current_element` (Assignment), and `Filtered_Cases` (SObject collection) elements.
+
+## CH 3 - Make Decisions Based on Collection Count
+
+- Configure a new flow that evaluates a collection based on the number of records in it.
+
+**Problem:** Account managers need different downstream behavior depending on how many open opportunities exist on an account when its **Industry** changes. Build a record-triggered flow on **Account** that runs after save when `Industry` is changed. Query all related opportunities that are not **Closed Won** or **Closed Lost**, then branch on the size of that collection: if **more than 3** open opportunities exist, send an email to the account owner; otherwise, loop the records and set each opportunity's **Stage** to **Needs Analysis** and commit the updates in a single bulk operation. Activate the flow before verification.
