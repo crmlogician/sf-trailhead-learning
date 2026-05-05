@@ -83,3 +83,48 @@ Complete additional configuration to update opportunities based on changes users
 
 **Problem:**
 Take the rows the user selected in the Challenge 1 Data Table, let the user edit each one on a per-record screen, then persist all edits in a **single bulk DML** — not one update per loop iteration.
+
+### Target flow
+- **Label:** `Opportunity Updater`
+- **API Name:** `Opportunity_Updater`
+- **Type:** Screen Flow (designed to be called as a subflow from `Opportunity_Review`)
+
+### Resources to create
+
+| Type | API Name | Notes |
+| --- | --- | --- |
+| Variable (SObject collection, **Input**) | `Selected_Opportunities` | Object: `Opportunity` — already in the starter; receives the rows selected on the parent flow's Data Table |
+| Variable (SObject collection) | `oppsToUpdate` | Object: `Opportunity` — local; holds edited records, updated in one DML after the loop |
+
+### Element-by-element
+
+1. **Loop `Opportunity_Loop`** — iterate `Selected_Opportunities` ascending
+   - `nextValueConnector` → `Update_Opportunity` screen
+   - `noMoreValuesConnector` → `Update_Opportunities` record-update element
+2. **Screen `Update_Opportunity`** (inside the loop) — editable fields default from the current loop record:
+   - **Opp_Name** (String) ← `{!Opportunity_Loop.Name}`
+   - **Opp_Close_Date** (Date) ← `{!Opportunity_Loop.CloseDate}`
+   - **Opp_Account** (`flowruntime:lookup`, `AccountId`) ← `{!Opportunity_Loop.AccountId}`
+   - **Opp_Description** (String) ← `{!Opportunity_Loop.Description}`
+   - All input fields use `inputsOnNextNavToAssocScrn=UseStoredValues` so values persist on revisit
+3. **Assignment `Update_Opportunity_Record`** — copy each screen value onto the loop record:
+   - `Opportunity_Loop.Name` = `{!Opp_Name}`
+   - `Opportunity_Loop.AccountId` = `{!Opp_Account.recordId}`
+   - `Opportunity_Loop.CloseDate` = `{!Opp_Close_Date}`
+   - `Opportunity_Loop.Description` = `{!Opp_Description}`
+4. **Assignment `Capture_Record_in_the_Collection_for_Update`** — `oppsToUpdate Add Opportunity_Loop`, then connect back to the loop
+5. **Update Records `Update_Opportunities`** (after the loop) — `inputReference = oppsToUpdate` (single bulk DML for all edits)
+
+### Why bulk update (the optimization)
+
+Putting Update Records **inside the loop** would issue one DML per opportunity — burns SOQL/DML governor limits and is the standard anti-pattern. Building `oppsToUpdate` inside the loop and updating **once after the loop ends** is the textbook fix and what the challenge checker looks for.
+
+### Acceptance checks
+
+- The flow is **Active** and named exactly `Opportunity Updater` / `Opportunity_Updater`.
+- It accepts an **input** SObject collection for the selected opportunities (`Selected_Opportunities`, Object: `Opportunity`).
+- A **Loop** iterates that input collection ascending.
+- The in-loop screen pre-fills Name, Close Date, Account, and Description from the current loop record.
+- An assignment inside the loop copies edited values back onto the loop record.
+- A second assignment inside the loop **adds** the loop record to `oppsToUpdate`.
+- A single **Update Records** element runs **after** the loop, bound to `oppsToUpdate`.

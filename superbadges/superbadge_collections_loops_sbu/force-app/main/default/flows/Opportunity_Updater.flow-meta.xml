@@ -2,6 +2,59 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>57.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Capture_Record_in_the_Collection_for_Update</name>
+        <label>Capture Record in the Collection for Update</label>
+        <locationX>264</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>oppsToUpdate</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Opportunity_Loop</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Opportunity_Loop</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Opportunity_Record</name>
+        <label>Update Opportunity Record</label>
+        <locationX>264</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>Opportunity_Loop.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Opp_Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Opportunity_Loop.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Opp_Account.recordId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Opportunity_Loop.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Opp_Close_Date</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Opportunity_Loop.Description</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Opp_Description</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Capture_Record_in_the_Collection_for_Update</targetReference>
+        </connector>
+    </assignments>
     <description>A flow that takes in a list of Opportunities and allows for updating of strategic values.</description>
     <environments>Default</environments>
     <interviewLabel>Opportunity Updater {!$Flow.CurrentDateTime}</interviewLabel>
@@ -11,12 +64,15 @@
         <name>Opportunity_Loop</name>
         <label>Opportunity Loop</label>
         <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationY>134</locationY>
         <collectionReference>Selected_Opportunities</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
             <targetReference>Update_Opportunity</targetReference>
         </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Opportunities</targetReference>
+        </noMoreValuesConnector>
     </loops>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -37,17 +93,24 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordUpdates>
+        <name>Update_Opportunities</name>
+        <label>Update Opportunities</label>
+        <locationX>176</locationX>
+        <locationY>650</locationY>
+        <inputReference>oppsToUpdate</inputReference>
+    </recordUpdates>
     <screens>
         <description>A screen to allow the updating of an opportunity</description>
         <name>Update_Opportunity</name>
         <label>Update Opportunity</label>
         <locationX>264</locationX>
-        <locationY>278</locationY>
+        <locationY>242</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Opportunity_Loop</targetReference>
+            <targetReference>Update_Opportunity_Record</targetReference>
         </connector>
         <fields>
             <name>Update_Opportunity_Section1</name>
@@ -63,6 +126,7 @@
                     </defaultValue>
                     <fieldText>Opportunity Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -92,6 +156,7 @@
                     </defaultValue>
                     <fieldText>Close Date</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <styleProperties>
                         <verticalAlignment>
@@ -169,6 +234,7 @@
             </defaultValue>
             <fieldText>Description</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <styleProperties>
                 <verticalAlignment>
@@ -190,6 +256,14 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>oppsToUpdate</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
     <variables>
         <description>The collection of selected opportunities passed in by the parent flow</description>
         <name>Selected_Opportunities</name>
