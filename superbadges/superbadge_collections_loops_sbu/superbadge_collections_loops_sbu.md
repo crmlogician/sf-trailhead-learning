@@ -33,7 +33,6 @@ Display opportunities from the last 30 days with stage-based filtering.
 - **Label:** `Opportunity Review`
 - **API Name:** `Opportunity_Review`
 - **Type:** Screen Flow
-- **File:** [force-app/main/default/flows/Opportunity_Review.flow-meta.xml](force-app/main/default/flows/Opportunity_Review.flow-meta.xml)
 
 ### Resources to create
 
@@ -77,3 +76,10 @@ Display opportunities from the last 30 days with stage-based filtering.
 - Labels and API names are case-sensitive — copy/paste them.
 - Don't add extra elements; the challenge checker rejects deviations.
 - Save and activate the flow before running the challenge check.
+
+## Challenge 2 — Configure a Screen Flow to Collect and Save User Changes
+
+Complete additional configuration to update opportunities based on changes users make in a screen. Optimize the flow for best performance and efficiency.
+
+**Problem:**
+Take the rows the user selected in the Challenge 1 Data Table, let the user edit each one on a per-record screen, then persist all edits in a **single bulk DML** — not one update per loop iteration.
