@@ -37,3 +37,9 @@ Trailhead: [Superbadge: Scheduled Flow and Subflow](https://trailhead.salesforce
 - Activated the subflow.
 - Back in **Weekly Program Participant Check**, deleted the inline assignments, decision, lookups, and updates that were duplicated into the subflow, then dropped a **Subflow** element `Program_Count_and_Participant_Status_Subflow` on the canvas, mapped its `Current_Participant` input to `{!$Record}`, and reconnected the scheduled start to it.
 - Reactivated the trimmed-down **Weekly Program Participant Check**.
+
+## CH 3 - Trigger the Subflow When a Participant's End Date Changes
+
+- Build a record-triggered flow that reuses the new subflow to keep participant data current.
+
+**Problem:** **Program Participant** records carry start and end dates, and the program count needs to react when a participant's end date moves. Create a record-triggered flow named **Program Participant Updated** on **Program Participant** that fires when **End Date** (`End_Date__c`) is changed. The flow should call the **Program Count and Participant Status - Subflow** subflow, passing in the relevant data for the current participant record. Activate the flow before verification.
