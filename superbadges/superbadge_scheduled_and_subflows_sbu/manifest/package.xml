@@ -4,6 +4,7 @@
         <members>Daily_Appointment_Check</members>
         <members>Program_Count_and_Participant_Status_Subflow</members>
         <members>Weekly_Program_Participant_Check</members>
+        <members>Program_Participant_Updated</members>
         <name>Flow</name>
     </types>
     <!--

@@ -43,3 +43,12 @@ Trailhead: [Superbadge: Scheduled Flow and Subflow](https://trailhead.salesforce
 - Build a record-triggered flow that reuses the new subflow to keep participant data current.
 
 **Problem:** **Program Participant** records carry start and end dates, and the program count needs to react when a participant's end date moves. Create a record-triggered flow named **Program Participant Updated** on **Program Participant** that fires when **End Date** (`End_Date__c`) is changed. The flow should call the **Program Count and Participant Status - Subflow** subflow, passing in the relevant data for the current participant record. Activate the flow before verification.
+
+**Flow:** Program Participant Updated
+
+**Solution:**
+
+- Created the **Program Participant Updated** record-triggered flow on **Program Participant** (`Program_Participant__c`) with `triggerType = RecordAfterSave` and `recordTriggerType = Update`.
+- Set the start element's entry condition to fire only when **End Date** changes: `End_Date__c IsChanged = true`.
+- Wired the start element directly to a **Subflow** call `Program_Count_and_Participant_Status_Subflow`, mapping `Current_Participant` to `{!$Record}` so the triggering Program Participant record is handed straight to the shared subflow.
+- Activated the flow.
