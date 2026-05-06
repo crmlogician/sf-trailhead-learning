@@ -12,3 +12,9 @@ Trailhead: [Superbadge: Scheduled Flow and Subflow](https://trailhead.salesforce
 
 **Flow:** Daily Appointment Check
 
+**Solution:**
+
+- Saved the existing **Appointment Follow Up** draft as a new autolaunched flow named **Daily Appointment Check** and switched the start element to a **Scheduled** trigger running **Daily** at `00:00:00.000Z`, with **Provider Appointment** (`Provider_Appointment__c`) as the scheduled object.
+- Reused the draft's filter criteria on the start element so the schedule only iterates over appointments that are still open: `Stage__c != "Canceled"` AND `Stage__c != "Completed"`.
+- Keep everything as it is.
+
