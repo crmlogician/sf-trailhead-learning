@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Adjust the Number_of_Active_Participants__c field.</description>
+        <name>Decrement_the_Program_Participant_Count</name>
+        <label>Decrement the Program Participant Count</label>
+        <locationX>50</locationX>
+        <locationY>756</locationY>
+        <assignmentItems>
+            <assignToReference>Get_related_Program.Number_of_Active_Participants__c</assignToReference>
+            <operator>Subtract</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Program_Participant</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Adjust the Number_of_Active_Participants__c field.</description>
+        <name>Increment_the_Program_Participant</name>
+        <label>Increment the Program Participant Count</label>
+        <locationX>314</locationX>
+        <locationY>756</locationY>
+        <assignmentItems>
+            <assignToReference>Get_related_Program.Number_of_Active_Participants__c</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Program_Participant</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Deactivate the Program Participant record.</description>
+        <name>Mark_Participant_as_inactive</name>
+        <label>Mark Participant as inactive</label>
+        <locationX>50</locationX>
+        <locationY>636</locationY>
+        <assignmentItems>
+            <assignToReference>Current_Participant.Active__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Decrement_the_Program_Participant_Count</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Activate the the Program Participant record.</description>
+        <name>Mark_the_Participant_as_Active</name>
+        <label>Mark the Participant as Active</label>
+        <locationX>314</locationX>
+        <locationY>636</locationY>
+        <assignmentItems>
+            <assignToReference>Current_Participant.Active__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Increment_the_Program_Participant</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Set the Current_Participant variable with the Program Participant record.</description>
+        <name>Set_current_participant</name>
+        <label>Set current participant</label>
+        <locationX>314</locationX>
+        <locationY>276</locationY>
+        <assignmentItems>
+            <assignToReference>Current_Participant</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_related_Program</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Check Active and End Date field values to adjust Program Count.</description>
+        <name>Check_if_Program_needs_to_be_updated</name>
+        <label>Check if Program needs to be updated</label>
+        <locationX>314</locationX>
+        <locationY>516</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Decrement_Program_Count</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Current_Participant.Active__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Current_Participant.End_Date__c</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>Todays_Date</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Mark_Participant_as_inactive</targetReference>
+            </connector>
+            <label>Decrement Program Count</label>
+        </rules>
+        <rules>
+            <name>Increment_Program_Count</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Current_Participant.Active__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Current_Participant.End_Date__c</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <elementReference>Todays_Date</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Mark_the_Participant_as_Active</targetReference>
+            </connector>
+            <label>Increment Program Count</label>
+        </rules>
+    </decisions>
+    <description>Update Program and Program Participants on weekly basis.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>Todays_Date</name>
+        <dataType>Date</dataType>
+        <expression>Today()</expression>
+    </formulas>
+    <interviewLabel>Weekly Program Participant Check {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Weekly Program Participant Check</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get the program related to the current participant.</description>
+        <name>Get_related_Program</name>
+        <label>Get related Program</label>
+        <locationX>314</locationX>
+        <locationY>396</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_if_Program_needs_to_be_updated</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Program__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Program__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update the Program Participant record.</description>
+        <name>Update_Program_Participant</name>
+        <label>Update Program Participant</label>
+        <locationX>314</locationX>
+        <locationY>972</locationY>
+        <connector>
+            <targetReference>Update_Program_Values</targetReference>
+        </connector>
+        <inputReference>Current_Participant</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <description>Update the related program records.</description>
+        <name>Update_Program_Values</name>
+        <label>Update Program Values</label>
+        <locationX>314</locationX>
+        <locationY>1092</locationY>
+        <inputReference>Get_related_Program</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_current_participant</targetReference>
+        </connector>
+        <object>Program_Participant__c</object>
+        <schedule>
+            <frequency>Weekly</frequency>
+            <startDate>2022-11-22</startDate>
+            <startTime>00:00:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>The current Program participant being worked with</description>
+        <name>Current_Participant</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Program_Participant__c</objectType>
+    </variables>
+</Flow>

@@ -18,3 +18,11 @@ Trailhead: [Superbadge: Scheduled Flow and Subflow](https://trailhead.salesforce
 - Reused the draft's filter criteria on the start element so the schedule only iterates over appointments that are still open: `Stage__c != "Canceled"` AND `Stage__c != "Completed"`.
 - Keep everything as it is.
 
+## CH 2 - Streamline Program Participation Management
+
+- Extract reusable participant-status logic into a subflow and have the existing weekly flow call it.
+
+**Problem:** The foundation runs periodic programs where participants enroll, and program managers rely on the **Number of Active Participants** field on the **Program** object to stay accurate. The existing **Weekly Program Participant Check** flow already performs this maintenance on a schedule, but the participant-status logic needs to be reused elsewhere. Duplicate the applicable logic into a new subflow named **Program Count and Participant Status - Subflow**, exposing a `Current_Participant` input variable so callers can pass the participant record in. Then refactor **Weekly Program Participant Check** to delegate to the subflow — passing the current participant record as the input — and activate the updated parent flow.
+
+**Flows:**
+- Parent flow: Weekly Program Participant Check
