@@ -72,3 +72,9 @@ Trailhead: [Superbadge - Object Relationships](https://trailhead.salesforce.com/
 - **App Image:** Any image that encourages rockstardom
 - **Navigation items:** Accounts, Albums, Artists, Campaigns, Contacts, Songs, Reports
 - **Profile access:** System Administrator, Standard User
+
+**Notes:**
+
+- Created `World_Tour_Manager.app-meta.xml` Lightning App with console navigation and the seven required tabs (Accounts, Albums, Artists, Campaigns, Contacts, Songs, Reports).
+- Added `World_Tour_Manager_UtilityBar.flexipage-meta.xml` for the app's utility bar.
+- Updated `Admin.profile-meta.xml` and `Standard.profile-meta.xml` to grant access to the World Tour Manager app.

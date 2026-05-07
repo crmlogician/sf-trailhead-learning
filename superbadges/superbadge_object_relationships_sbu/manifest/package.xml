@@ -22,7 +22,16 @@
     </types>
     <types>
         <members>Account_Record_Page</members>
+        <members>World_Tour_Manager_UtilityBar</members>
         <name>Flexipage</name>
+    </types>
+    <types>
+        <members>World_Tour_Manager</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>Profile</name>
     </types>
     <!--
     sf project deploy start -x ./manifest/package.xml -g -dry-run
