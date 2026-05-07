@@ -59,3 +59,26 @@ Trailhead: [Superbadge - User Access Troubleshooting](https://trailhead.salesfor
 
 **Notes:**
 - Updated the Opportunity page layout to adjust field accessibility on `Next Step` so it is no longer read-only, restoring inline edit in list views.
+
+## Challenge 3 - Low Priority
+
+- Complete the challenges to close the low-priority cases in your My Open Cases list view.
+
+### Case 00001035: Missing Report
+
+**Problem:** Tara cannot locate a report Cindy T. created for the sales team while Cindy is unavailable.
+
+**Requirements:**
+- Identify the issue
+- Determine the appropriate admin action per CoE policies
+- Document and close the case
+
+### Case 00001037: Public List View Access
+
+**Problem:** Sales users accidentally created shared list views; policy prohibits public list views for this group.
+
+**Requirements:**
+- Ensure Sales permission set users cannot create public list views
+- Delete the three test list views in question
+- Document and close the case
+
