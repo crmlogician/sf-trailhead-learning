@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>Opportunity-Opportunity Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Sales</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
         <members>Custom: Sales Profile</members>
         <name>Profile</name>
     </types>

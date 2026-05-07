@@ -31,3 +31,26 @@ Trailhead: [Superbadge - User Access Troubleshooting](https://trailhead.salesfor
 
 **Notes:**
 - Updated the specified opportunity and marked **Private** as `true` to remove the unauthorized access.
+
+## Challenge 2 - Medium Priority
+
+- Complete the challenges to close the medium-priority cases in your My Open Cases list view.
+
+### Case 00001038: Opportunity Field History Access
+
+**Problem:** Need to fulfill a CoE-approved request for sales team access to the Opportunity Field History related list.
+
+**Requirements:**
+- Admins and sales users are permitted to view the Opportunity Field History related list, but the component should be hidden for all others
+- Grant access via the existing Sales permission set
+- Document and close the case
+
+### Case 00001034: Inline Edit Restriction
+
+**Problem:** Tara struggles to make inline edits to the Next Step field in opportunity list views, despite this capability being demonstrated previously.
+
+**Requirements:**
+- Ensure users with Opportunity object access can edit the Next Step field in list views
+- Identify the blocking issue
+- Document resolution and close the case
+
