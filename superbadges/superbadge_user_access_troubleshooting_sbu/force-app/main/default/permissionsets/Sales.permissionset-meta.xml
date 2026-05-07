@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Field_History_Related_List</name>
+    </customPermissions>
+    <description>Permission set for sales users</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Sales</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>CreateCustomizeFilters</name>
+    </userPermissions>
+</PermissionSet>
