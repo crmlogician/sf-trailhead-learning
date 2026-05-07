@@ -51,3 +51,10 @@ Trailhead: [Superbadge - Object Relationships](https://trailhead.salesforce.com/
   - Remix single: **"No More Mr. Wi-Fi"**
   - Album: **"A Momentary Lapse of Memory"**
   - Lady Java's songs: **"Poker Interface"** and **"404 (Error Code)"**
+
+**Notes:**
+
+- Created `Track_list__c` junction object with `Campaign__c` and `Song__c` lookups to model the many-to-many between Tours and Songs.
+- Created `Performs_On__c` junction object with `Artist__c` and `Song__c` lookups to support Artist ↔ Song relationships.
+- Added `Album__c` lookup on `Song__c` so each song can be associated with up to one album.
+- Added page layouts for `Track_list__c` and `Performs_On__c`, and updated the Song layout to surface the new Album lookup.
