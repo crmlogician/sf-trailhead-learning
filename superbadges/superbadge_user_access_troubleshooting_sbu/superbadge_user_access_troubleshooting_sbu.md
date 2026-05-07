@@ -73,6 +73,9 @@ Trailhead: [Superbadge - User Access Troubleshooting](https://trailhead.salesfor
 - Determine the appropriate admin action per CoE policies
 - Document and close the case
 
+**Notes:**
+- Closed the case. If the resolution fails, create a follow-up task for Cindy and re-validate access to the report.
+
 ### Case 00001037: Public List View Access
 
 **Problem:** Sales users accidentally created shared list views; policy prohibits public list views for this group.
@@ -82,3 +85,5 @@ Trailhead: [Superbadge - User Access Troubleshooting](https://trailhead.salesfor
 - Delete the three test list views in question
 - Document and close the case
 
+**Notes:**
+- Updated the Sales permission set to remove the **Manage Public List Views** system permission so sales users can no longer create public list views.
