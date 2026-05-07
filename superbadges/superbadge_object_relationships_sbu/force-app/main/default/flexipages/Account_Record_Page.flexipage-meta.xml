@@ -116,6 +116,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Capacity__c</fieldItem>
                 <identifier>RecordCapacity_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Concert Venue</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -180,6 +187,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Security_Provided__c</fieldItem>
                 <identifier>RecordSecurity_Provided_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Concert Venue</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -190,6 +204,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Security_Percent__c</fieldItem>
                 <identifier>RecordSecurity_Percent_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Security_Provided__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-e6dd6fcf-e535-4963-97bd-baf3df4bd08b</name>
