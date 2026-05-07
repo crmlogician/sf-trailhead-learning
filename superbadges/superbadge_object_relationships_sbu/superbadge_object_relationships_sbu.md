@@ -34,3 +34,20 @@ Trailhead: [Superbadge - Object Relationships](https://trailhead.salesforce.com/
 - Updated Campaign `Type` picklist with the new values (`Tour`, `Show`, `Digital Show`, `Interview`, `Venue`, `Other`).
 - Added `Account__c` lookup field on Campaign (Tour → Venue) and surfaced it on the Campaign layout.
 - Created the four Tour/Show campaign records per the challenge guidelines.
+
+
+## CH 2 - Build Custom Objects
+
+- Design and build object relationships.
+
+**Problem:** Lead singer Appy wants track lists so each tour can show which songs are performed. Guest artist Lady Java is joining on a remix and original songs for an album, so the data model also needs to connect songs to albums in a flexible way.
+
+**Requirements:**
+
+- **Track List (junction):** Build a many-to-many relationship between Tour (Campaign) and Song using a `Track List` junction object.
+- **Album ↔ Song:** Update the data model so a Song can be connected to up to one Album at a time (lookup relationship from Song to Album).
+- **Data context to support:**
+  - Guest artist: **Lady Java**
+  - Remix single: **"No More Mr. Wi-Fi"**
+  - Album: **"A Momentary Lapse of Memory"**
+  - Lady Java's songs: **"Poker Interface"** and **"404 (Error Code)"**
