@@ -46,7 +46,7 @@
                 <field>CloseDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>NextStep</field>
             </layoutItems>
             <layoutItems>

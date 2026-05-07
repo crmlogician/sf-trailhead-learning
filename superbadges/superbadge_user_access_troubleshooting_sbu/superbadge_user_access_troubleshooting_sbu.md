@@ -45,6 +45,9 @@ Trailhead: [Superbadge - User Access Troubleshooting](https://trailhead.salesfor
 - Grant access via the existing Sales permission set
 - Document and close the case
 
+**Notes:**
+- Adjusted the Sales permission set with the custom permission assignment that gates visibility of the Opportunity Field History related list.
+
 ### Case 00001034: Inline Edit Restriction
 
 **Problem:** Tara struggles to make inline edits to the Next Step field in opportunity list views, despite this capability being demonstrated previously.
@@ -54,3 +57,5 @@ Trailhead: [Superbadge - User Access Troubleshooting](https://trailhead.salesfor
 - Identify the blocking issue
 - Document resolution and close the case
 
+**Notes:**
+- Updated the Opportunity page layout to adjust field accessibility on `Next Step` so it is no longer read-only, restoring inline edit in list views.
