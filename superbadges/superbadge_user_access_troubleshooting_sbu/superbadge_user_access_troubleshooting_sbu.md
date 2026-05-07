@@ -17,6 +17,9 @@ Trailhead: [Superbadge - User Access Troubleshooting](https://trailhead.salesfor
 - Check for and restore any deleted opportunities
 - Document actions and close the case
 
+**Notes:**
+- Updated the "Custom: Support Profile" profile to remove Opportunity delete access.
+
 ### Case 00001039: Unauthorized Opportunity Access
 
 **Problem:** Jacqui B. unexpectedly has access to the Opportunity object despite the CoE principle of least privilege and private default sharing settings.
@@ -26,3 +29,5 @@ Trailhead: [Superbadge - User Access Troubleshooting](https://trailhead.salesfor
 - Remove unauthorized opportunity access
 - Document findings and close the case
 
+**Notes:**
+- Updated the specified opportunity and marked **Private** as `true` to remove the unauthorized access.
