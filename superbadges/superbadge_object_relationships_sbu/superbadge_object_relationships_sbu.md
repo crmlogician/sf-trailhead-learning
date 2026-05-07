@@ -58,3 +58,17 @@ Trailhead: [Superbadge - Object Relationships](https://trailhead.salesforce.com/
 - Created `Performs_On__c` junction object with `Artist__c` and `Song__c` lookups to support Artist ↔ Song relationships.
 - Added `Album__c` lookup on `Song__c` so each song can be associated with up to one album.
 - Added page layouts for `Track_list__c` and `Performs_On__c`, and updated the Song layout to surface the new Album lookup.
+
+## CH 3 - Lightning App Details
+
+- Build a Lightning App as described to show tour information.
+
+**Problem:** With a world tour launching soon, Art needs a single Lightning app that brings together accounts, campaigns, contacts, and the new creative-asset objects so the team can manage everything from one place.
+
+**Requirements:**
+
+- **App Name:** `World Tour Manager`
+- **Navigation Style:** Console navigation
+- **App Image:** Any image that encourages rockstardom
+- **Navigation items:** Accounts, Albums, Artists, Campaigns, Contacts, Songs, Reports
+- **Profile access:** System Administrator, Standard User
